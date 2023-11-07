@@ -30,6 +30,23 @@ function Slider({ min, max, stateVar, stateFunc }) {
   );
 }
 
+function DateCalc({ count }) {
+  let date = new Date();
+  date.setDate(date.getDate() + count);
+  return (
+    <div>
+      <span>
+        {count === 0
+          ? "Today is "
+          : count > 0
+          ? `${count} day${count === 1 ? "" : "s"} from today is `
+          : `${count * -1} day${count === -1 ? "" : "s"} ago was `}
+      </span>
+      <span>{date.toDateString()}.</span>
+    </div>
+  );
+}
+
 // V1; no slider
 // function DateStepCounter() {
 //   const [step, setStep] = useState(1);
@@ -70,6 +87,7 @@ function DateStepCounter() {
     <div>
       <Slider min={0} max={100} stateVar={step} stateFunc={setStep} />
       <Counter count={count} countFunc={setCount} step={step} />
+      <DateCalc count={count} />
     </div>
   );
 }
