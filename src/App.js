@@ -20,10 +20,10 @@ function Slider({ min, max, stateVar, stateFunc }) {
     <>
       <input
         type="range"
-        min={1}
-        max={100}
+        min={min}
+        max={max}
         value={stateVar}
-        onChange={(e) => stateFunc(+e.target.value)}
+        onChange={(e) => stateFunc(Number(e.target.value))}
       ></input>
       <span>{stateVar}</span>
     </>
@@ -83,11 +83,18 @@ function DateCalc({ count }) {
 function DateStepCounter() {
   const [step, setStep] = useState(1);
   const [count, setCount] = useState(0);
+  function handleReset() {
+    setStep(1);
+    setCount(0);
+  }
   return (
     <div>
-      <Slider min={0} max={100} stateVar={step} stateFunc={setStep} />
+      <Slider min={1} max={100} stateVar={step} stateFunc={setStep} />
       <Counter count={count} countFunc={setCount} step={step} />
       <DateCalc count={count} />
+      {(count !== 0 || step !== 1) && (
+        <button onClick={() => handleReset()}>Reset</button>
+      )}
     </div>
   );
 }
